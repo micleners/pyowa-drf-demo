@@ -8,5 +8,5 @@ class Event(models.Model):
     presenter = models.CharField(max_length=256, blank=True)
     time = models.DateTimeField(default=datetime.now(tz=timezone.utc))
     location = models.CharField(max_length=256, blank=True)
-    coordinator = models.CharField(max_length=256, blank=True)
+    coordinator = models.ForeignKey('auth.User', related_name='events', null=True, on_delete=models.SET_NULL)
     description = models.TextField(blank=True)
