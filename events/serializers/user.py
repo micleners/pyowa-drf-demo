@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from events.models import Event
 from django.contrib.auth.models import User
+from events.serializers.event import EventSerializer
 
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
@@ -8,14 +9,3 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = User
         fields = ('url', 'id', 'username', 'events')
-
-class EventSerializer(serializers.HyperlinkedModelSerializer):
-    included_serializers = {
-        'coordinator': UserSerializer,
-    }
-    class Meta:
-        model = Event
-        fields = ('url', 'id', 'title', 'presenter', 'time', 'location', 'coordinator', 'description')
-
-    class JSONAPIMeta:
-        included_resources = ['coordinator']
